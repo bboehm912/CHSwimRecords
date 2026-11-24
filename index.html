@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1f4d">
+<title>Chisholm Swimming | Running Records</title>
+<style>
+  :root{--navy:#0b1f4d;--navy2:#13306f;--red:#c8102e;--ink:#1b2333;--muted:#5a6580;--bg:#eef3fb;--line:#d8deec;--aqua:#2bb3d6;--gold:#f2a900}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,sans-serif}
+  button,input,select{font:inherit}
+  button{cursor:pointer}
+  :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  a{color:var(--navy2)}
+  header{background:linear-gradient(135deg,var(--navy),var(--navy2) 70%,var(--red));color:#fff;padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .id{display:flex;align-items:center;gap:16px}
+  #school-logo{width:72px;height:72px;background:#fff;border-radius:12px;display:grid;place-items:center;padding:6px}
+  #school-logo img{max-width:100%;max-height:100%;object-fit:contain}
+  .ph{font-size:10px;line-height:1.3;text-align:center;color:#64748b}
+  header h1{font:700 1.7rem Georgia,serif;margin:0}
+  header p{margin:2px 0 0;opacity:.85;font-size:.9rem}
+  #stamp{position:relative;width:110px;height:110px;background:#fff;border-radius:50%;display:grid;place-items:center}
+  #stamp .stamp-photo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;object-fit:cover}
+  #stamp .stamp-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  #stamp.has-both .ph{display:none}
+  .bar{background:#fff;border-bottom:3px solid var(--red);padding:0 5%;display:flex;gap:8px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:5;box-shadow:0 2px 10px #0b1f4d14}
+  .bar nav{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+  .bar nav button{background:none;border:0;padding:14px 18px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-3px;transition:color .2s}
+  .bar nav button:hover{color:var(--navy)}
+  .bar nav button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--red)}
+  .seg{display:inline-flex;border:1px solid #b9c3dc;border-radius:99px;overflow:hidden}
+  .seg button{background:#fff;border:0;padding:6px 16px;font-weight:700;color:var(--muted)}
+  .seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+  main{max-width:1180px;margin:auto;padding:22px 5% 60px}
+  h2{font:700 1.5rem Georgia,serif;color:var(--navy);margin:0 0 4px}
+  h3{font:700 1.15rem Georgia,serif;color:var(--navy);margin:28px 0 10px}
+  .sub{color:var(--muted);margin:0 0 14px;font-size:.92rem}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+  .tw{overflow-x:auto}
+  /* hero */
+  .hero{position:relative;overflow:hidden;border-radius:18px;color:#fff;padding:26px 26px 22px;margin:6px 0 16px;background:linear-gradient(120deg,var(--navy) 0%,var(--navy2) 55%,#1c5aa8 100%)}
+  .hero::before,.hero::after{content:"";position:absolute;left:-10%;width:120%;height:90px;bottom:-45px;border-radius:50%;background:#ffffff14;animation:drift 9s ease-in-out infinite alternate}
+  .hero::after{bottom:-60px;background:#c8102e40;animation-duration:12s;animation-direction:alternate-reverse}
+  .hero h2{color:#fff;font-size:1.9rem}
+  .hero .sub{color:#ffffffcc}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;position:relative;z-index:1;margin-top:12px}
+  .stat{background:#ffffff1f;border:1px solid #ffffff33;border-radius:12px;padding:12px;backdrop-filter:blur(3px)}
+  .stat b{display:block;font:700 2rem Georgia,serif}
+  .stat span{font-size:.75rem;opacity:.85;text-transform:uppercase;letter-spacing:.07em}
+  @keyframes drift{from{transform:translateX(-4%)}to{transform:translateX(4%)}}
+  /* chips */
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
+  .chip{flex:none;background:#fff;border:1px solid #b9c3dc;border-radius:99px;padding:7px 15px;font-weight:700;color:var(--navy);transition:transform .15s,background .15s}
+  .chip:hover{transform:translateY(-2px)}
+  .chip[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+  .chip small{font-weight:600;opacity:.75;margin-left:4px}
+  /* grids and cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+  .rise{animation:rise .5s both;animation-delay:calc(var(--i,0)*35ms)}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .rec{background:#fff;border:1px solid var(--line);border-left:5px solid var(--red);border-radius:12px;padding:12px 14px;text-align:left;transition:transform .15s,box-shadow .15s;color:var(--ink)}
+  .rec:hover{transform:translateY(-3px);box-shadow:0 8px 18px #0b1f4d1f}
+  .rec .ev{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .rec .tm{font:700 1.6rem Georgia,serif;color:var(--navy);margin:2px 0}
+  .rec .who{font-size:.85rem}
+  .rec .meta{font-size:.75rem;color:var(--muted);margin-top:2px}
+  .rec.relay{border-left-color:var(--aqua)}
+  .rec.dive{border-left-color:var(--gold)}
+  .sw{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:left;transition:transform .15s,box-shadow .15s;color:var(--ink)}
+  .sw:hover{transform:translateY(-3px);box-shadow:0 8px 18px #0b1f4d1f}
+  .av{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;background:linear-gradient(135deg,var(--navy),var(--red))}
+  .sw b{display:block}
+  .sw span{font-size:.8rem;color:var(--muted)}
+  /* tables */
+  table{border-collapse:collapse;width:100%;font-size:.88rem;background:#fff}
+  th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+  td{white-space:nowrap}
+  td.wrap{white-space:normal;min-width:180px}
+  th{background:#eef2fb;color:var(--navy)}
+  td.n,th.n{text-align:right}
+  tr.sep td{background:#f7f9fe;font-weight:700;color:var(--navy)}
+  .tag{display:inline-block;font-size:.7rem;font-weight:700;border-radius:99px;padding:1px 8px;background:#e5ebfa;color:var(--navy)}
+  .tag.red{background:#fde8ea;color:var(--red)}
+  /* bars */
+  .bars{display:grid;gap:7px}
+  .brow{display:grid;grid-template-columns:70px 1fr 34px;gap:10px;align-items:center;font-size:.85rem}
+  .btrack{background:#e8eef9;border-radius:99px;height:16px;overflow:hidden}
+  .bfill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--aqua));transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .hist{display:flex;align-items:flex-end;gap:10px;height:160px;padding-top:8px}
+  .hcol{flex:1;max-width:80px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;background:none;border:0;color:var(--muted);font-size:.78rem}
+  .hcol i{display:block;width:100%;border-radius:8px 8px 0 0;background:var(--navy);height:0;transition:height .9s cubic-bezier(.2,.8,.2,1)}
+  .hcol[aria-pressed="true"] i{background:var(--red)}
+  .hcol b{color:var(--ink)}
+  /* forms */
+  input,select{padding:8px 10px;border:1px solid #b9c3dc;border-radius:8px;background:#fff;max-width:100%}
+  label{font-size:.78rem;font-weight:700;color:var(--muted);display:block;margin-bottom:3px}
+  .filters{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:8px 0 14px}
+  .btn{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:8px 14px;font-weight:700;text-decoration:none;display:inline-block}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid #b9c3dc}
+  .btn.sm{padding:4px 10px;font-size:.78rem}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+  .empty{color:var(--muted);font-style:italic;padding:14px}
+  .note{background:#fff8e1;border-left:4px solid var(--gold);padding:10px 14px;border-radius:6px;font-size:.88rem;margin:12px 0}
+  .soon{text-align:center;padding:40px 16px}
+  .soon b{font:700 1.3rem Georgia,serif;color:var(--navy)}
+  details.meet{background:#fff;border:1px solid var(--line);border-radius:12px;margin:8px 0}
+  details.meet summary{padding:12px 14px;cursor:pointer;font-weight:700;color:var(--navy);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  details.meet summary span.d{color:var(--muted);font-weight:600;font-size:.85rem}
+  details.meet .tw{padding:0 6px 10px}
+  svg.chart{width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:10px}
+  [hidden]{display:none!important}
+  /* profile dialog */
+  dialog{border:0;border-radius:18px;padding:0;width:min(880px,94vw);max-height:92vh;box-shadow:0 20px 60px #0b1f4d66}
+  dialog::backdrop{background:#0b1f4d99}
+  .dhead{background:linear-gradient(120deg,var(--navy),var(--navy2) 60%,var(--red));color:#fff;padding:18px 22px;display:flex;gap:14px;align-items:center}
+  .dhead h2{color:#fff;margin:0}
+  .dhead .av{width:56px;height:56px;background:#ffffff2e;font-size:1.2rem}
+  .dbody{padding:6px 22px 22px}
+  .x{margin-left:auto;background:#ffffff26;color:#fff;border:0;border-radius:50%;width:36px;height:36px;font-size:1.2rem}
+  .printonly{display:none}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+  @media print{
+    @page{margin:.5in}
+    body{background:#fff}
+    .bar,.filters,.chips,.noprint,.btn,.x,.hist .hcol:not([aria-pressed="true"]){display:none!important}
+    header{background:#fff;color:#000;border-bottom:3px solid var(--red);padding:0 0 10px}
+    header p{opacity:1}
+    .printonly{display:block}
+    .hero{background:#fff!important;color:#000;border:2px solid var(--navy);padding:14px}
+    .hero::before,.hero::after{display:none}
+    .hero h2,.hero .sub{color:#000}
+    .stat{background:#fff;border:1px solid #999}
+    .card,.rec,.sw,details.meet{box-shadow:none;break-inside:avoid}
+    .rise{animation:none}
+    .bfill,.hcol i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body.dlg header,body.dlg main,body.dlg .bar{display:none!important}
+    body.dlg dialog{position:static;box-shadow:none;width:100%;max-height:none}
+    .dhead{background:#fff;color:#000;border-bottom:2px solid var(--navy)}
+    .dhead h2{color:#000}
+    .dhead .av{background:var(--navy)}
+    main{padding:10px 0}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="id">
+    <div id="school-logo"><span class="ph">School logo<br>not added</span></div>
+    <div><h1>Chisholm Swimming</h1><p>Running Records &middot; 2012&ndash;13 to 2027&ndash;28</p></div>
+  </div>
+  <div id="stamp"><span class="ph">Photo &amp; stamp<br>not added</span></div>
+</header>
+<div class="bar">
+  <nav role="tablist" aria-label="Sections">
+    <button role="tab" data-tab="season" aria-selected="true">Season</button>
+    <button role="tab" data-tab="swimmers" aria-selected="false">Swimmers</button>
+    <button role="tab" data-tab="records" aria-selected="false">Records</button>
+    <button role="tab" data-tab="docs" aria-selected="false">Documents</button>
+  </nav>
+  <div class="seg" role="group" aria-label="Team"><button data-div="Boys" aria-pressed="true">Boys</button><button data-div="Girls" aria-pressed="false">Girls</button></div>
+  <button class="btn ghost sm" id="print-page" type="button">Print</button>
+</div>
+<main>
+  <section id="view-season"></section>
+
+  <section id="view-swimmers" hidden>
+    <h2>Swimmers</h2>
+    <p class="sub">Tap a swimmer to see best times, progress and every swim.</p>
+    <div class="filters">
+      <div><label for="sw-q">Find a swimmer</label><input id="sw-q" placeholder="Type a name" style="min-width:240px"></div>
+      <div><label for="sw-sort">Sort by</label><select id="sw-sort"><option value="name">Name</option><option value="grad">Graduation year</option><option value="swims">Most swims</option></select></div>
+    </div>
+    <div id="sw-grid" class="grid"></div>
+  </section>
+
+  <section id="view-records" hidden>
+    <h2>Record Board</h2>
+    <p class="sub">Fastest times on file, built automatically from the data. Tap a record to see the top 10 and how it changed over time.</p>
+    <div class="filters">
+      <div><label for="f-course">Course</label><select id="f-course"><option>SCY</option><option>SCM</option><option>LCM</option></select></div>
+      <div><label for="f-event">Event</label><select id="f-event"></select></div>
+      <div><label for="f-best">Top 10 shows</label><select id="f-best"><option value="1">Best swim per swimmer</option><option value="0">All swims</option></select></div>
+    </div>
+    <div id="rec-cards"></div>
+    <h3 id="top-h">Top 10</h3>
+    <div class="card tw" id="top10"></div>
+    <h3 id="time-h">Record timeline</h3>
+    <div class="card tw" id="timeline"></div>
+  </section>
+
+  <section id="view-docs" hidden>
+    <h2>Document Library</h2>
+    <p class="sub">Record sheets, rosters, meet results and other files, organized by category and season.</p>
+    <div class="filters">
+      <div><label for="doc-search">Search</label><input id="doc-search" placeholder="Title, category or season"></div>
+      <div><label for="doc-season">Season</label><select id="doc-season"></select></div>
+      <div><label for="doc-cat">Category</label><select id="doc-cat"></select></div>
+    </div>
+    <p class="sub" id="doc-count" role="status"></p>
+    <div class="card tw" id="doc-table"></div>
+    <div class="card" id="doc-viewer" hidden>
+      <div class="row"><b id="doc-viewer-title"></b><span style="flex:1"></span><a class="btn ghost sm" id="doc-viewer-open" target="_blank" rel="noopener">Open in new tab</a><button class="btn ghost sm" id="doc-viewer-close" type="button">Close</button></div>
+      <iframe id="doc-frame" title="Document viewer" style="width:100%;height:720px;border:1px solid var(--line);border-radius:8px;background:#fff"></iframe>
+    </div>
+    <details class="card noprint"><summary><b>How to add documents</b></summary>
+      <ol>
+        <li>Put files in the <code>documents</code> folder beside this page. Sub-folders become categories, for example <code>documents/Rosters/</code>.</li>
+        <li>Put the season in the file name, like <code>2015-16 Roster.pdf</code>.</li>
+        <li>Run <code>build-documents-index.ps1</code> to refresh <code>documents/index.json</code>, then commit the files.</li>
+      </ol>
+      <p class="sub">The library must be opened from a web address (for example GitHub Pages) or a local server.</p>
+    </details>
+  </section>
+</main>
+
+<dialog id="profile" aria-label="Swimmer profile"></dialog>
+
+<script src="data/swimming-data.js"></script>
+<script>
+(() => {
+  const FIRST_START = 2012, LAST_START = 2027;
+  const SEASONS = [];
+  for (let y = FIRST_START; y <= LAST_START; y++) SEASONS.push(y + '-' + String(y + 1).slice(2));
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sIdx = s => SEASONS.indexOf(s);
+  const seasonOf = d => { const t = new Date(d + 'T00:00'), y = t.getFullYear(), st = t.getMonth() >= 6 ? y : y - 1; return st + '-' + String(st + 1).slice(2); };
+  const nice = s => s.replace('-', '\u2013');
+  const dateNice = d => new Date(d + 'T00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const gradeIn = (a, s) => a.gradYear ? 12 - (a.gradYear - (parseInt(s) + 1)) : 0;
+  function toSec(t) {
+    const m = String(t).trim().match(/^(?:(\d+):)?(\d+(?:\.\d+)?)$/);
+    return m ? (m[1] ? Number(m[1]) * 60 : 0) + Number(m[2]) : NaN;
+  }
+  const opts = (arr, sel) => arr.map(v => `<option${v === sel ? ' selected' : ''}>${esc(v)}</option>`).join('');
+  const table = (head, rows, empty) => rows.length
+    ? `<table><thead><tr>${head.map(h => `<th class="${h[0] === '#' ? 'n' : ''}">${esc(h.replace(/^#/, ''))}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`
+    : `<p class="empty">${empty}</p>`;
+
+  /* Data (from data/swimming-data.js) */
+  const D = window.SWIM_DATA || { athletes: [], feeders: [], meets: [] };
+  const isDive = e => /diving/i.test(e), isRelay = e => /relay/i.test(e);
+  const results = [];
+  D.meets.forEach(m => (m.results || []).forEach(([event, swimmers, time, points, splits]) => {
+    const names = swimmers.split(',').map(s => s.trim()).filter(s => s && !s.startsWith('('));
+    const sec = isDive(event) ? -parseFloat(time) : toSec(time);
+    results.push({ date: m.date, meet: m.meet, course: m.course || 'SCY', division: m.division || 'Boys', event, swimmers, names, time, points: points == null ? null : Number(points), splits: splits || '', sec, season: seasonOf(m.date) });
+  }));
+  const goodRes = results.filter(r => isFinite(r.sec));
+  const A = D.athletes.map(([name, gradYear, first, last, division, feeder, note], id) => {
+    const a = { id, name, gradYear, first, last, division, feeder, note };
+    a.res = results.filter(r => r.division === division && r.names.includes(name) && sIdx(r.season) >= sIdx(first) && sIdx(r.season) <= sIdx(last));
+    a.seasons = [...new Set(a.res.map(r => r.season))].sort();
+    return a;
+  });
+
+  let div = 'Boys', season = '', tab = 'season';
+  const resFor = () => results.filter(r => r.division === div);
+  const initials = n => n.split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  const evKey = e => [isDive(e) ? 2 : isRelay(e) ? 1 : 0, parseInt(e) || 0, e];
+  const evSort = (a, b) => { const x = evKey(a), y = evKey(b); return x[0] - y[0] || x[1] - y[1] || x[2].localeCompare(y[2]); };
+  const bestBy = (list, key) => { const m = new Map(); list.forEach(r => { const k = r[key]; if (!m.has(k) || r.sec < m.get(k).sec) m.set(k, r); }); return m; };
+  const soon = what => `<div class="card soon rise"><b>${div} ${what} are coming soon</b><p class="sub">Once ${div.toLowerCase()} results are added to <code>data/swimming-data.js</code> they appear here automatically.</p></div>`;
+
+  /* Animations */
+  function animate(root) {
+    root.querySelectorAll('[data-count]').forEach(el => {
+      const to = Number(el.dataset.count);
+      if (REDUCED || !to) { el.textContent = to; return; }
+      const t0 = performance.now();
+      const step = t => { const p = Math.min(1, (t - t0) / 800); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      root.querySelectorAll('[data-w]').forEach(el => el.style.width = el.dataset.w + '%');
+      root.querySelectorAll('[data-h]').forEach(el => el.style.height = el.dataset.h + '%');
+    }));
+  }
+  const recCard = (r, i, act) => `<button class="rec rise ${isRelay(r.event) ? 'relay' : isDive(r.event) ? 'dive' : ''}" style="--i:${i}" ${act}><div class="ev">${esc(r.event)}</div><div class="tm">${esc(r.time)}</div><div class="who">${esc(r.swimmers)}</div><div class="meta">${dateNice(r.date)} &middot; ${esc(r.meet)}</div></button>`;
+
+  /* Branding */
+  function brand(id, file, alt, cls) {
+    const box = $('#' + id), img = new Image();
+    img.alt = alt; if (cls) img.className = cls;
+    img.onload = () => {
+      box.append(img);
+      if (id === 'school-logo') box.querySelector('.ph').hidden = true;
+      if (box.querySelector('.stamp-photo') && box.querySelector('.stamp-svg')) box.classList.add('has-both');
+    };
+    img.src = file;
+  }
+  brand('school-logo', 'chisholm_logo.png', 'Chisholm school logo');
+  brand('stamp', 'boehm_photo.jpg', 'Instructor photo', 'stamp-photo');
+  brand('stamp', 'boehm-stamp.svg', 'Classroom stamp', 'stamp-svg');
+
+  /* Season view */
+  function renderSeason() {
+    const el = $('#view-season'), rs = resFor();
+    const seasons = [...new Set(rs.map(r => r.season))].sort();
+    if (!seasons.length) { el.innerHTML = soon('results'); return; }
+    if (!seasons.includes(season)) season = seasons[seasons.length - 1];
+    const sr = rs.filter(r => r.season === season);
+    const meetMap = new Map(); sr.forEach(r => { const k = r.date + '|' + r.meet; (meetMap.get(k) || meetMap.set(k, []).get(k)).push(r); });
+    const meets = [...meetMap.values()].sort((a, b) => b[0].date.localeCompare(a[0].date));
+    const swimmers = new Set(sr.flatMap(r => r.names));
+    const pts = sr.reduce((t, r) => t + (r.points || 0), 0);
+    const latest = meets[0];
+    const star = [...latest].filter(r => r.points).sort((a, b) => b.points - a.points).slice(0, 3);
+    const top = [...bestBy(sr.filter(r => isFinite(r.sec)), 'event').values()].sort((a, b) => evSort(a.event, b.event));
+
+    const inSeason = A.filter(a => a.division === div && a.res.some(r => r.season === season));
+    const gc = {}; inSeason.forEach(a => { const g = gradeIn(a, season), k = g >= 7 && g <= 12 ? g : '?'; gc[k] = (gc[k] || 0) + 1; });
+    const gmax = Math.max(1, ...Object.values(gc));
+    const gKeys = [7, 8, 9, 10, 11, 12, '?'].filter(k => gc[k]);
+    const hist = seasons.map(s => ({ s, n: new Set(rs.filter(r => r.season === s).flatMap(r => r.names)).size }));
+    const hmax = Math.max(1, ...hist.map(h => h.n));
+    const fd = D.feeders.filter(f => f.season === season);
+
+    el.innerHTML = `
+      <div class="chips" role="group" aria-label="Season">${seasons.map(s => `<button class="chip" data-season="${s}" aria-pressed="${s === season}">${nice(s)}</button>`).join('')}</div>
+      <div class="hero rise">
+        <h2>${nice(season)} ${div} season</h2>
+        <p class="sub">${esc(sr[0].course)} &middot; Results as recorded in the meet printouts</p>
+        <div class="stats">
+          <div class="stat"><b data-count="${meets.length}">0</b><span>Meets</span></div>
+          <div class="stat"><b data-count="${swimmers.size}">0</b><span>Swimmers</span></div>
+          <div class="stat"><b data-count="${sr.length}">0</b><span>Swims</span></div>
+          <div class="stat"><b data-count="${pts}">0</b><span>Points scored</span></div>
+        </div>
+      </div>
+      <div class="card rise" style="--i:2">
+        <span class="tag red">Latest meet</span>
+        <h3 style="margin:8px 0 2px">${esc(latest[0].meet)}</h3>
+        <p class="sub">${dateNice(latest[0].date)} &middot; ${latest.length} swims</p>
+        ${star.length ? `<b>Top scoring swims</b>` + table(['Event', 'Swimmer(s)', '#Time', '#Pts'], star.map(r => `<tr><td>${esc(r.event)}</td><td class="wrap">${esc(r.swimmers)}</td><td class="n"><b>${esc(r.time)}</b></td><td class="n">${r.points}</td></tr>`), '') : ''}
+      </div>
+      <h3>Top times of the season</h3>
+      <div class="grid">${top.map((r, i) => recCard(r, i, `data-goto-event="${esc(r.event)}" data-course="${r.course}" title="Open on the Record Board"`)).join('')}</div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:6px">
+        <div><h3>Who swam, by grade</h3><div class="card"><div class="bars">${gKeys.map(k => `<div class="brow"><span>${k === '?' ? 'Unknown' : 'Grade ' + k}</span><div class="btrack"><div class="bfill" data-w="${gc[k] / gmax * 100}"></div></div><b>${gc[k]}</b></div>`).join('')}</div>
+          ${gc['?'] ? '<p class="sub" style="margin:10px 0 0">Unknown = graduation year is not on the printout yet.</p>' : ''}</div></div>
+        <div><h3>Swimmers per season</h3><div class="card"><div class="hist">${hist.map(h => `<button class="hcol" data-season="${h.s}" aria-pressed="${h.s === season}" aria-label="${nice(h.s)}: ${h.n} swimmers"><b>${h.n}</b><i data-h="${h.n / hmax * 100}"></i><span>${h.s.slice(2)}</span></button>`).join('')}</div>
+          <p class="sub" style="margin:8px 0 0">Seasons with results on file.</p></div></div>
+      </div>
+      ${fd.length ? `<h3>Feeder programs</h3><div class="card tw">${table(['Program', 'Type', 'Classification', '#Incoming'], fd.map(f => `<tr><td>${esc(f.name)}</td><td><span class="tag${f.type === 'Direct' ? '' : ' red'}">${esc(f.type)}</span></td><td>${esc(f.classification)}</td><td class="n">${f.incoming}</td></tr>`), '')}</div>` : ''}
+      <h3>All meets this season</h3>
+      ${meets.map(ms => {
+        const evs = [...new Set(ms.map(r => r.event))].sort(evSort);
+        const rows = evs.flatMap(e => [`<tr class="sep"><td colspan="3">${esc(e)}</td></tr>`, ...ms.filter(r => r.event === e).sort((a, b) => a.sec - b.sec).map(r => `<tr><td class="wrap">${esc(r.swimmers)}</td><td class="n"><b>${esc(r.time)}</b></td><td class="n">${r.points ?? ''}</td></tr>`)]);
+        return `<details class="meet"><summary>${esc(ms[0].meet)} <span class="d">${dateNice(ms[0].date)} &middot; ${ms.length} swims &middot; ${ms.reduce((t, r) => t + (r.points || 0), 0)} pts</span></summary><div class="tw">${table(['Swimmer(s)', '#Time', '#Pts'], rows, '')}</div></details>`;
+      }).join('')}`;
+    animate(el);
+  }
+
+  /* Swimmers */
+  function renderSwimmers() {
+    const q = $('#sw-q').value.toLowerCase().trim(), sort = $('#sw-sort').value;
+    const list = A.filter(a => a.division === div && a.name.toLowerCase().includes(q))
+      .sort((a, b) => sort === 'swims' ? b.res.length - a.res.length || a.name.localeCompare(b.name) : sort === 'grad' ? (a.gradYear || 9999) - (b.gradYear || 9999) || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
+    $('#sw-grid').innerHTML = !A.some(a => a.division === div) ? soon('swimmers')
+      : list.length ? list.map((a, i) => `<button class="sw rise" style="--i:${Math.min(i, 20)}" data-profile="${a.id}"><div class="av">${esc(initials(a.name))}</div><div><b>${esc(a.name)}</b><span>${a.gradYear ? 'Class of ' + a.gradYear : 'Class unknown'} &middot; ${a.res.length} swim${a.res.length === 1 ? '' : 's'}</span></div></button>`).join('')
+      : '<p class="empty">No swimmer matches that name.</p>';
+  }
+  ['#sw-q', '#sw-sort'].forEach(s => $(s).addEventListener('input', renderSwimmers));
+
+  function progressChart(prog) {
+    const W = 800, H = 240, L = 60, R = 20, T = 20, B = 40;
+    const secs = prog.map(r => r.sec), lo = Math.min(...secs), hi = Math.max(...secs), span = hi - lo || 1;
+    const x = i => L + (prog.length === 1 ? (W - L - R) / 2 : i * (W - L - R) / (prog.length - 1));
+    const y = s => T + (s - lo) / span * (H - T - B);
+    const best = prog.find(r => r.sec === lo), worst = prog.find(r => r.sec === hi);
+    const pts = prog.map((r, i) => `${x(i)},${y(r.sec)}`).join(' ');
+    return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Progression chart"><line x1="${L}" y1="${T}" x2="${L}" y2="${H - B}" stroke="#b9c3dc"/><line x1="${L}" y1="${H - B}" x2="${W - R}" y2="${H - B}" stroke="#b9c3dc"/><text x="${L - 8}" y="${T + 4}" font-size="11" text-anchor="end" fill="#5a6580">${esc(best.time)}</text><text x="${L - 8}" y="${H - B + 4}" font-size="11" text-anchor="end" fill="#5a6580">${esc(worst.time)}</text><polyline points="${pts}" fill="none" stroke="#c8102e" stroke-width="3"/>${prog.map((r, i) => `<circle cx="${x(i)}" cy="${y(r.sec)}" r="5" fill="#0b1f4d"><title>${r.date}: ${esc(r.time)}</title></circle><text x="${x(i)}" y="${H - 18}" font-size="10" text-anchor="middle" fill="#5a6580">${r.date.slice(2)}</text>`).join('')}</svg>`;
+  }
+  const dlg = $('#profile');
+  function openProfile(id) {
+    const a = A[id], res = a.res.filter(r => isFinite(r.sec));
+    const ind = res.filter(r => !isRelay(r.event));
+    const bests = [...bestBy(res, 'event').values()].sort((x, y) => evSort(x.event, y.event));
+    const evs = [...new Set(res.map(r => r.event))].sort(evSort);
+    const multi = evs.filter(e => res.filter(r => r.event === e).length > 1);
+    dlg.innerHTML = `
+      <div class="dhead"><div class="av">${esc(initials(a.name))}</div><div><h2>${esc(a.name)}</h2><span>${a.gradYear ? 'Class of ' + a.gradYear : 'Class year unknown'} &middot; ${esc(a.division)} &middot; ${a.seasons.length ? a.seasons.map(nice).join(', ') : 'no swims on file'}</span></div><button class="x noprint" data-close aria-label="Close">&times;</button></div>
+      <div class="dbody">
+        ${a.note ? `<p class="sub" style="margin-top:12px">${esc(a.note)}</p>` : ''}
+        <div class="stats" style="margin:12px 0;grid-template-columns:repeat(auto-fit,minmax(110px,1fr))">
+          ${[[res.length, 'Swims'], [a.seasons.length, 'Seasons'], [evs.length, 'Events'], [res.reduce((t, r) => t + (r.points || 0), 0), 'Points']].map(x => `<div class="stat" style="background:#eef3fb;border-color:var(--line);color:var(--navy)"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}
+        </div>
+        <h3>Best times</h3>
+        <div class="tw">${table(['Event', '#Best', 'Date', 'Meet'], bests.map(r => `<tr><td>${esc(r.event)}</td><td class="n"><b>${esc(r.time)}</b></td><td>${dateNice(r.date)}</td><td>${esc(r.meet)}</td></tr>`), 'No swims on file yet.')}</div>
+        ${multi.length ? `<h3>Progress</h3><div class="filters noprint"><div><label for="p-event">Event</label><select id="p-event">${opts(multi)}</select></div></div><div id="p-chart"></div>` : ''}
+        <h3>Every swim</h3>
+        <div class="tw">${table(['Date', 'Meet', 'Event', '#Time', '#Pts'], [...a.res].sort((x, y) => y.date.localeCompare(x.date)).map(r => `<tr><td>${r.date}</td><td>${esc(r.meet)}</td><td>${esc(r.event)}${isRelay(r.event) ? ' <span class="tag">relay</span>' : ''}</td><td class="n"><b>${esc(r.time)}</b></td><td class="n">${r.points ?? ''}</td></tr>`), 'No swims on file yet.')}</div>
+        <div class="row noprint"><button class="btn ghost sm" id="print-profile" type="button">Print this profile</button></div>
+      </div>`;
+    const drawProg = () => { const s = $('#p-event', dlg); if (!s) return; const p = res.filter(r => r.event === s.value).sort((x, y) => x.date.localeCompare(y.date)); $('#p-chart', dlg).innerHTML = progressChart(p); };
+    if ($('#p-event', dlg)) { $('#p-event', dlg).addEventListener('input', drawProg); drawProg(); }
+    $('#print-profile', dlg).onclick = () => print();
+    document.body.classList.add('dlg');
+    dlg.showModal();
+  }
+  dlg.addEventListener('close', () => document.body.classList.remove('dlg'));
+  dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-close]')) dlg.close(); });
+
+  /* Records */
+  ['#f-course', '#f-event', '#f-best'].forEach(s => $(s).addEventListener('input', renderRecords));
+  function renderRecords() {
+    const c = $('#f-course').value;
+    const p = goodRes.filter(r => r.course === c && r.division === div);
+    const events = [...new Set(p.map(r => r.event))].sort(evSort);
+    const sel = $('#f-event'), cur = sel.value;
+    sel.innerHTML = events.length ? opts(events, cur) : '<option value="">No events</option>';
+    const ev = events.includes(cur) ? cur : events[0] || '';
+    sel.value = ev;
+    if (!events.length) {
+      $('#rec-cards').innerHTML = div === 'Girls' && !results.some(r => r.division === 'Girls') ? soon('records') : `<p class="empty">No ${c} ${div} results yet.</p>`;
+      ['#top10', '#timeline'].forEach(i => $(i).innerHTML = '<p class="empty">Nothing to show yet.</p>');
+      return;
+    }
+    const recs = [...bestBy(p, 'event').values()].sort((a, b) => evSort(a.event, b.event));
+    const group = (label, test) => { const l = recs.filter(r => test(r.event)); return l.length ? `<h3>${label}</h3><div class="grid">${l.map((r, i) => recCard(r, i, `data-pick-event="${esc(r.event)}"`)).join('')}</div>` : ''; };
+    $('#rec-cards').innerHTML = group('Individual events', e => !isRelay(e) && !isDive(e)) + group('Relays', isRelay) + group('Diving (score)', isDive);
+    $('#top-h').textContent = `Top 10 \u2014 ${ev}`;
+    let list = p.filter(r => r.event === ev).sort((a, b) => a.sec - b.sec);
+    if ($('#f-best').value === '1') { const seen = new Set(); list = list.filter(r => { const k = r.swimmers.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; }); }
+    $('#top10').innerHTML = table(['#Rank', 'Swimmer(s)', '#Time', 'Date', 'Season', 'Meet'],
+      list.slice(0, 10).map((r, i) => `<tr><td class="n">${i + 1}</td><td class="wrap">${esc(r.swimmers)}</td><td class="n"><b>${esc(r.time)}</b></td><td>${dateNice(r.date)}</td><td>${nice(r.season)}</td><td>${esc(r.meet)}</td></tr>`), 'No results for this event.');
+    $('#time-h').textContent = `Record timeline \u2014 ${ev}`;
+    let best = Infinity;
+    const chrono = p.filter(r => r.event === ev).sort((a, b) => a.date.localeCompare(b.date) || a.sec - b.sec).filter(r => r.sec < best && (best = r.sec, true));
+    $('#timeline').innerHTML = table(['Date', 'Season', 'Swimmer(s)', '#New record', 'Meet'],
+      chrono.map(r => `<tr><td>${dateNice(r.date)}</td><td>${nice(r.season)}</td><td class="wrap">${esc(r.swimmers)}</td><td class="n"><b>${esc(r.time)}</b></td><td>${esc(r.meet)}</td></tr>`), 'No record progression yet.');
+  }
+
+  /* Documents */
+  let docs = [];
+  const docUrl = d => 'documents/' + d.file.split('/').map(encodeURIComponent).join('/');
+  async function loadDocs() {
+    try {
+      const res = await fetch('documents/index.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error(res.status);
+      docs = (await res.json()).filter(d => d && d.file);
+      docs.forEach(d => { d.title = d.title || d.file.split('/').pop().replace(/\.[^.]+$/, ''); d.category = d.category || 'General'; d.season = d.season || ''; d.type = (d.type || d.file.split('.').pop() || '').toLowerCase(); });
+      renderDocs();
+    } catch (err) {
+      $('#doc-table').innerHTML = '<p class="empty">No document list found yet. Add files to the documents folder, run build-documents-index.ps1, and open this page from a web address.</p>';
+    }
+  }
+  function renderDocs() {
+    const sSel = $('#doc-season'), cSel = $('#doc-cat'), sv = sSel.value, cv = cSel.value;
+    sSel.innerHTML = '<option value="">All seasons</option>' + opts([...new Set(docs.map(d => d.season).filter(Boolean))].sort(), sv);
+    cSel.innerHTML = '<option value="">All categories</option>' + opts([...new Set(docs.map(d => d.category))].sort(), cv);
+    sSel.value = sv; cSel.value = cv;
+    const q = $('#doc-search').value.toLowerCase();
+    const list = docs.filter(d => (!sv || d.season === sv) && (!cv || d.category === cv) && (d.title + d.category + d.season + d.file).toLowerCase().includes(q))
+      .sort((a, b) => (a.season || '').localeCompare(b.season || '') || a.category.localeCompare(b.category) || a.title.localeCompare(b.title));
+    $('#doc-count').textContent = list.length + ' of ' + docs.length + ' documents';
+    $('#doc-table').innerHTML = table(['Title', 'Category', 'Season', 'Type', ''],
+      list.map(d => `<tr><td>${esc(d.title)}</td><td>${esc(d.category)}</td><td>${esc(d.season)}</td><td><span class="tag">${esc(d.type.toUpperCase())}</span></td><td><button class="btn sm" data-view-d="${esc(d.file)}">View</button> <a class="btn ghost sm" href="${docUrl(d)}" download>Download</a></td></tr>`),
+      docs.length ? 'No documents match.' : 'No documents yet.');
+  }
+  ['#doc-search', '#doc-season', '#doc-cat'].forEach(s => $(s).addEventListener('input', renderDocs));
+  $('#doc-viewer-close').onclick = () => { $('#doc-viewer').hidden = true; $('#doc-frame').src = 'about:blank'; };
+
+  /* Navigation and events */
+  const TABS = ['season', 'swimmers', 'records', 'docs'];
+  function show(t) {
+    tab = TABS.includes(t) ? t : 'season';
+    TABS.forEach(x => { $('#view-' + x).hidden = x !== tab; document.querySelector(`[data-tab="${x}"]`).setAttribute('aria-selected', String(x === tab)); });
+    renderAll();
+  }
+  function renderAll() {
+    document.querySelectorAll('[data-div]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.div === div)));
+    if (tab === 'season') renderSeason();
+    if (tab === 'swimmers') renderSwimmers();
+    if (tab === 'records') renderRecords();
+  }
+  addEventListener('hashchange', () => show(location.hash.slice(1)));
+  addEventListener('beforeprint', () => document.querySelectorAll('details.meet').forEach(d => { d.dataset.was = d.open; d.open = true; }));
+  addEventListener('afterprint', () => document.querySelectorAll('details.meet').forEach(d => { d.open = d.dataset.was === 'true'; }));
+  document.addEventListener('click', e => {
+    const t = e.target.closest('button'); if (!t) return;
+    const D2 = t.dataset;
+    if (D2.tab) { location.hash = D2.tab; if (location.hash.slice(1) !== D2.tab) show(D2.tab); }
+    else if (D2.div) { div = D2.div; renderAll(); }
+    else if (D2.season) { season = D2.season; renderSeason(); }
+    else if (D2.profile) openProfile(Number(D2.profile));
+    else if (D2.gotoEvent) { $('#f-course').value = D2.course; show('records'); $('#f-event').value = D2.gotoEvent; renderRecords(); location.hash = 'records'; }
+    else if (D2.pickEvent) { $('#f-event').value = D2.pickEvent; renderRecords(); $('#top-h').scrollIntoView({ block: 'start' }); }
+    else if (D2.viewD) {
+      const d = docs.find(x => x.file === D2.viewD), url = docUrl(d);
+      if (['pdf', 'png', 'jpg', 'jpeg', 'gif', 'svg', 'txt', 'htm', 'html'].includes(d.type)) {
+        $('#doc-frame').src = url; $('#doc-viewer-title').textContent = d.title;
+        $('#doc-viewer-open').href = url; $('#doc-viewer').hidden = false; $('#doc-viewer').scrollIntoView({ block: 'start' });
+      } else window.open(url, '_blank', 'noopener');
+    }
+  });
+  $('#print-page').onclick = () => print();
+
+  loadDocs();
+  show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
